@@ -2,7 +2,7 @@ import React from 'react'
 import './LoginForm.css';
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-// import axios from "axios";
+import axios from "axios";
 
 import { Link } from "react-router-dom";
 function LoginForm({ errors, touched, isSubmitting, status }) {
@@ -47,18 +47,16 @@ const FormikLoginForm = withFormik({
     }),
     handleSubmit(values, { resetForm, setSubmitting, setStatus }) {
         console.log(values);
-        // axios
-        //     .post("http://localhost:5000/api/register", values)
-        //     .then(res => {
-        //         console.log(res);
-        //         setStatus(res.data)
-        //         resetForm();
-        //         setSubmitting(false);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //         setSubmitting(false);
-        //     });
+        axios.post('http://localhost:5000/api/login', values)
+            .then(res => {
+                console.log("login Payload", res.data.payload)
+                setStatus(res.data.payload)
+                resetForm();
+                setSubmitting(false);
+                localStorage.setItem('token', res.data.payload);
+
+            })
+            .catch(err => console.log(err.response));
 
     }
 })(LoginForm);
