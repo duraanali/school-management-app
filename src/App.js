@@ -8,13 +8,13 @@ import Dashboard from './components/pages/Dashboard'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
 
-        <Route exact path="/" component={LoginForm} />
-        <Route exact path="/registerform" component={RegisterForm} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      </header>
+
+      <Route exact path="/" component={LoginForm} />
+      <Route exact path="/registerform" component={RegisterForm} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
     </div>
   );
 }
