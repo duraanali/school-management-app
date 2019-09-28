@@ -10,17 +10,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function Students() {
-    const [students, setStudents] = useState([])
-    console.log('Initial state', students)
+function Parents() {
+    const [parents, setParents] = useState([])
+    console.log('Initial state', parents)
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/students/')
+            .get('http://localhost:5000/api/parents')
             .then(res => {
                 console.log('Inside axios', res.data)
 
-                setStudents(res.data)
+                setParents(res.data)
 
             })
             .catch(err => console.log(err.response));
@@ -49,21 +49,25 @@ function Students() {
                             <TableRow>
                                 <TableCell align="left">ID</TableCell>
                                 <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">DOB</TableCell>
-                                <TableCell align="left">PARENT</TableCell>
-                                <TableCell align="left">CLASS</TableCell>
+                                <TableCell align="left">PHONE</TableCell>
+                                <TableCell align="left">ADDRESS</TableCell>
+                                <TableCell align="left">SPOUSE</TableCell>
+                                <TableCell align="left">SPOUSE PHONE</TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {students.map((student) => {
+                            {parents.map((parent) => {
 
-                                return <TableRow key={student.name}>
+                                return <TableRow key={parent.name}>
 
-                                    <TableCell align="left">{student.id}</TableCell>
-                                    <TableCell align="left">{student.name}</TableCell>
-                                    <TableCell align="left">{student.dob}</TableCell>
-                                    <TableCell align="left">{student.parent_id}</TableCell>
-                                    <TableCell align="left">{student.class_id}</TableCell>
+                                    <TableCell align="left">{parent.id}</TableCell>
+                                    <TableCell align="left">{parent.name}</TableCell>
+                                    <TableCell align="left">{parent.phone}</TableCell>
+                                    <TableCell align="left">{parent.address}</TableCell>
+                                    <TableCell align="left">{parent.spouse_name}</TableCell>
+                                    <TableCell align="left">{parent.spouse_phone}</TableCell>
+
                                 </TableRow>
 
                             })}
@@ -76,7 +80,4 @@ function Students() {
 
 }
 
-export default Students;
-
-
-
+export default Parents;

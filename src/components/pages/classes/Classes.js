@@ -10,17 +10,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function Students() {
-    const [students, setStudents] = useState([])
-    console.log('Initial state', students)
+function Classes() {
+    const [classes, setClasses] = useState([])
+    console.log('Initial state', classes)
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/students/')
+            .get('http://localhost:5000/api/classes/')
             .then(res => {
                 console.log('Inside axios', res.data)
 
-                setStudents(res.data)
+                setClasses(res.data)
 
             })
             .catch(err => console.log(err.response));
@@ -37,33 +37,33 @@ function Students() {
         },
     }));
 
-    const classes = useStyles();
+    const classes1 = useStyles();
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container fixed>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
+                <Paper className={classes1.root}>
+                    <Table className={classes1.table}>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="left">ID</TableCell>
                                 <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">DOB</TableCell>
-                                <TableCell align="left">PARENT</TableCell>
-                                <TableCell align="left">CLASS</TableCell>
+                                <TableCell align="left">SUBJECT</TableCell>
+                                <TableCell align="left">CREATED</TableCell>
+                                <TableCell align="left">TEACHER</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {students.map((student) => {
+                            {classes.map((item) => {
 
-                                return <TableRow key={student.name}>
+                                return <TableRow key={item.name}>
 
-                                    <TableCell align="left">{student.id}</TableCell>
-                                    <TableCell align="left">{student.name}</TableCell>
-                                    <TableCell align="left">{student.dob}</TableCell>
-                                    <TableCell align="left">{student.parent_id}</TableCell>
-                                    <TableCell align="left">{student.class_id}</TableCell>
+                                    <TableCell align="left">{item.id}</TableCell>
+                                    <TableCell align="left">{item.name}</TableCell>
+                                    <TableCell align="left">{item.subject}</TableCell>
+                                    <TableCell align="left">{item.created}</TableCell>
+                                    <TableCell align="left">{item.teacher_id}</TableCell>
                                 </TableRow>
 
                             })}
@@ -76,7 +76,4 @@ function Students() {
 
 }
 
-export default Students;
-
-
-
+export default Classes;

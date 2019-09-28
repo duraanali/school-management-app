@@ -1,20 +1,29 @@
 {
     "name": "server",
     "version": "1.0.0",
-    "description": "",
+    "description": "School Management Software",
     "main": "server.js",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
+        "connect-session-knex": "^1.4.0",
         "cors": "^2.8.3",
+        "dotenv": "^8.1.0",
         "express": "^4.15.2",
+        "express-session": "^1.16.2",
+        "helmet": "^3.21.1",
+        "jsonwebtoken": "^8.5.1",
         "knex": "^0.19.4",
+        "knex-cleaner": "^1.3.0",
         "sqlite": "^3.0.3"
     },
     "devDependencies": {
         "nodemon": "^1.17.2"
     },
     "scripts": {
-        "start": "nodemon server.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "nodemon index.js",
+        "start": "node index.js"
     },
     "author": "Duraan Ali",
     "license": "ISC"

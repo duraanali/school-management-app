@@ -10,17 +10,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-function Students() {
-    const [students, setStudents] = useState([])
-    console.log('Initial state', students)
+function Teachers() {
+    const [teachers, setTeachers] = useState([])
+    console.log('Initial state', teachers)
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/students/')
+            .get('http://localhost:5000/api/teachers/all')
             .then(res => {
                 console.log('Inside axios', res.data)
 
-                setStudents(res.data)
+                setTeachers(res.data)
 
             })
             .catch(err => console.log(err.response));
@@ -49,21 +49,19 @@ function Students() {
                             <TableRow>
                                 <TableCell align="left">ID</TableCell>
                                 <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">DOB</TableCell>
-                                <TableCell align="left">PARENT</TableCell>
-                                <TableCell align="left">CLASS</TableCell>
+                                <TableCell align="left">EMAIL</TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {students.map((student) => {
+                            {teachers.map((teacher) => {
 
-                                return <TableRow key={student.name}>
+                                return <TableRow key={teacher.name}>
 
-                                    <TableCell align="left">{student.id}</TableCell>
-                                    <TableCell align="left">{student.name}</TableCell>
-                                    <TableCell align="left">{student.dob}</TableCell>
-                                    <TableCell align="left">{student.parent_id}</TableCell>
-                                    <TableCell align="left">{student.class_id}</TableCell>
+                                    <TableCell align="left">{teacher.id}</TableCell>
+                                    <TableCell align="left">{teacher.name}</TableCell>
+                                    <TableCell align="left">{teacher.email}</TableCell>
+
                                 </TableRow>
 
                             })}
@@ -76,7 +74,4 @@ function Students() {
 
 }
 
-export default Students;
-
-
-
+export default Teachers;

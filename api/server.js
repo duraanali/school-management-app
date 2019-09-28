@@ -1,105 +1,49 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const cors = require('cors');
-const port = 5000;
-const app = express();
-const token =
-  'esfeyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NUIhkufemQifQ';
+const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
 
-let nextId = 7;
 
-let students = [
+const studentsRouter = require('./students/students-router.js');
+const adminsRouter = require('./admins/admins-router.js');
+const teachersRouter = require('./teachers/teachers-router.js');
+const parentsRouter = require('./parents/parents-router.js');
+const classesRouter = require('./classes/classes-router.js');
+const dbConnection = require('./data/dbConfig');
 
-  {
-    id: 6,
-    name: 'Michelle',
-    age: 67,
-    email: 'michelle@gmail.com'
-  }
-];
+const server = express();
 
-app.use(bodyParser.json());
 
-app.use(cors());
+const sessionConfig = {
+  name: 'school', // would name the cookie sid by default
+  secret: process.env.SESSION_SECRET || 'keep it secret, keep it safe',
+  cookie: {
+    maxAge: 1000 * 60 * 60, // in milliseconds
+    secure: false, // true means only send cookie over https
+    httpOnly: true, // true means JS has no access to the cookie
+  },
+  resave: false,
+  saveUninitialized: true, // GDPR compliance
+  store: new KnexSessionStore({
+    knex: dbConnection,
+    tablename: 'knexsessions',
+    sidfieldname: 'sessionid',
+    createtable: true,
+    clearInterval: 1000 * 60 * 30, // clean out expired session data
+  }),
+};
 
-function authenticator(req, res, next) {
-  const { authorization } = req.headers;
-  if (authorization === token) {
-    next();
-  } else {
-    res.status(403).json({ error: 'User be logged in to do that.' });
-  }
-}
 
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  if (username === 'abdiwali' && password === 'allahisone') {
-    req.loggedIn = true;
-    res.status(200).json({
-      payload: token
-    });
-  } else {
-    res
-      .status(403)
-      .json({ error: 'Username or Password incorrect. Please see Readme' });
-  }
-});
+server.use(helmet());
+server.use(cors());
+server.use(express.json());
+server.use(session(sessionConfig));
 
-app.get('/api/students', authenticator, (req, res) => {
-  setTimeout(() => {
-    res.send(students);
-  }, 1000);
-});
+server.use('/api/students', studentsRouter);
+server.use('/api/parents', parentsRouter);
+server.use('/api/admins', adminsRouter);
+server.use('/api/teachers', teachersRouter);
+server.use('/api/classes', classesRouter);
 
-app.get('/api/students/:id', authenticator, (req, res) => {
-  const student = students.find(s => s.id == req.params.id);
-
-  if (student) {
-    res.status(200).json(student);
-  } else {
-    res.status(404).send({ msg: 'Friend not found' });
-  }
-});
-
-app.post('/api/friends', authenticator, (req, res) => {
-  const friend = { id: getNextId(), ...req.body };
-
-  friends = [...friends, friend];
-
-  res.send(friends);
-});
-
-app.put('/api/friends/:id', authenticator, (req, res) => {
-  const { id } = req.params;
-
-  const friendIndex = friends.findIndex(f => f.id == id);
-
-  if (friendIndex > -1) {
-    const friend = { ...friends[friendIndex], ...req.body };
-
-    friends = [
-      ...friends.slice(0, friendIndex),
-      friend,
-      ...friends.slice(friendIndex + 1)
-    ];
-    res.send(friends);
-  } else {
-    res.status(404).send({ msg: 'Friend not found' });
-  }
-});
-
-app.delete('/api/friends/:id', authenticator, (req, res) => {
-  const { id } = req.params;
-
-  friends = friends.filter(f => f.id !== Number(id));
-
-  res.send(friends);
-});
-
-function getNextId() {
-  return nextId++;
-}
-
-app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
-});
+module.exports = server;
