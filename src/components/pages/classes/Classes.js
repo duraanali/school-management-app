@@ -16,7 +16,7 @@ function Classes() {
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/classes/')
+            .get('https://alifcloud.herokuapp.com/api/classes/')
             .then(res => {
                 console.log('Inside axios', res.data)
 

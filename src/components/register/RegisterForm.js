@@ -48,7 +48,7 @@ const FormikLoginForm = withFormik({
     handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
 
         axiosWithAuth()
-            .post("http://localhost:5000/api/admins/register", values)
+            .post("https://alifcloud.herokuapp.com/api/admins/register", values)
             .then(res => {
 
                 setStatus(res.data)
