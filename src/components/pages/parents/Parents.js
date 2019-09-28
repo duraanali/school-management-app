@@ -16,7 +16,7 @@ function Parents() {
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/parents')
+            .get('https://alifcloud.herokuapp.com/api/parents')
             .then(res => {
                 console.log('Inside axios', res.data)
 

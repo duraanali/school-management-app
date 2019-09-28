@@ -16,7 +16,7 @@ function Admins() {
 
     useEffect(() => {
         axiosWithAuth()
-            .get('http://localhost:5000/api/admins/all')
+            .get('https://alifcloud.herokuapp.com/api/admins/all')
             .then(res => {
                 console.log('Inside axios', res.data)
 
