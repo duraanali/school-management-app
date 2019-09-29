@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 function Teachers() {
     const [teachers, setTeachers] = useState([])
-    console.log('Initial state', teachers)
+
 
     useEffect(() => {
         axiosWithAuth()
@@ -31,10 +31,11 @@ function Teachers() {
             width: '100%',
             marginTop: theme.spacing(3),
             overflowX: 'auto',
+            marginLeft: 100
         },
         table: {
-            minWidth: 650,
-        },
+            minWidth: 240,
+        }
     }));
 
     const classes = useStyles();
