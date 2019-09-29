@@ -9,10 +9,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 function Students() {
     const [students, setStudents] = useState([])
-    console.log('Initial state', students)
+
 
     useEffect(() => {
         axiosWithAuth()
@@ -31,18 +32,45 @@ function Students() {
             width: '100%',
             marginTop: theme.spacing(3),
             overflowX: 'auto',
+            marginLeft: 100
+        },
+        header: {
+            width: '100%',
+            marginTop: theme.spacing(3),
+            overflowX: 'auto',
+            marginLeft: 100,
+            display: 'flex'
         },
         table: {
-            minWidth: 650,
+            minWidth: 240,
         },
+        title: {
+            width: '100%',
+            marginTop: theme.spacing(3),
+            overflowX: 'auto',
+            marginLeft: 100
+        },
+        add: {
+            width: '100%',
+            marginTop: theme.spacing(3),
+            overflowX: 'auto',
+            marginLeft: 500
+        }
     }));
 
     const classes = useStyles();
 
     return (
+
         <React.Fragment>
             <CssBaseline />
             <Container fixed>
+                <div className={classes.header}>
+                    <h2 className={classes.title}>Students</h2>
+                    <h2 className={classes.add}>
+                        <Link to="/studentadd">Add Student</Link>
+                    </h2>
+                </div>
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>

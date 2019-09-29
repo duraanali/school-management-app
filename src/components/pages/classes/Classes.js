@@ -12,7 +12,6 @@ import Paper from '@material-ui/core/Paper';
 
 function Classes() {
     const [classes, setClasses] = useState([])
-    console.log('Initial state', classes)
 
     useEffect(() => {
         axiosWithAuth()
@@ -31,10 +30,11 @@ function Classes() {
             width: '100%',
             marginTop: theme.spacing(3),
             overflowX: 'auto',
+            marginLeft: 100
         },
         table: {
-            minWidth: 650,
-        },
+            minWidth: 240,
+        }
     }));
 
     const classes1 = useStyles();

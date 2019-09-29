@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 function Admins() {
     const [admins, setAdmins] = useState([])
-    console.log('Initial state', admins)
+
 
     useEffect(() => {
         axiosWithAuth()
@@ -31,10 +31,11 @@ function Admins() {
             width: '100%',
             marginTop: theme.spacing(3),
             overflowX: 'auto',
+            marginLeft: 100
         },
         table: {
-            minWidth: 650,
-        },
+            minWidth: 240,
+        }
     }));
 
     const classes = useStyles();
