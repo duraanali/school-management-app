@@ -1,110 +1,148 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
 
-function Students() {
-    const [students, setStudents] = useState([])
+
+import './StudentAdd.css';
+import { withFormik, Form, Field, Select } from "formik";
+import * as Yup from "yup";
+
+function StudentAdd({ values,
+    errors,
+    status,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting, }) {
+
+    const [parents, setParents] = useState([])
+    const [classes, setClasses] = useState([])
 
 
     useEffect(() => {
         axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/students/')
+            .get('https://alifcloud.herokuapp.com/api/parents/')
             .then(res => {
                 console.log('Inside axios', res.data)
 
-                setStudents(res.data)
+                setParents(res.data)
 
             })
             .catch(err => console.log(err.response));
     }, []);
 
-    const useStyles = makeStyles(theme => ({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        header: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100,
-            display: 'flex'
-        },
-        table: {
-            minWidth: 240,
-        },
-        title: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        add: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 500
-        }
-    }));
+    useEffect(() => {
+        axiosWithAuth()
+            .get('https://alifcloud.herokuapp.com/api/classes/')
+            .then(res => {
+                console.log('Inside axios', res.data)
 
-    const classes = useStyles();
+                setClasses(res.data)
+
+            })
+            .catch(err => console.log(err.response));
+    }, []);
+
 
     return (
 
-        <React.Fragment>
-            <CssBaseline />
-            <Container fixed>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>Students</h2>
-                    <h2 className={classes.add}>
-                        <Link to="/studentadd">Add Student</Link>
-                    </h2>
-                </div>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">ID</TableCell>
-                                <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">DOB</TableCell>
-                                <TableCell align="left">PARENT</TableCell>
-                                <TableCell align="left">CLASS</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {students.map((student) => {
+        <div>
 
-                                return <TableRow key={student.name}>
 
-                                    <TableCell align="left">{student.id}</TableCell>
-                                    <TableCell align="left">{student.name}</TableCell>
-                                    <TableCell align="left">{student.dob}</TableCell>
-                                    <TableCell align="left">{student.parent_id}</TableCell>
-                                    <TableCell align="left">{student.class_id}</TableCell>
-                                </TableRow>
 
-                            })}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </Container>
-        </React.Fragment>
+            <Form className="addForm">
+                <h3>Add Student</h3>
+                {touched.name && errors.name && <p>{errors.name}</p>}
+                <Field className="field-input" type="text" name="name" placeholder="name" />
+                {touched.dob && errors.dob && <p>{errors.dob}</p>}
+                <Field className="field-input" type="text" name="dob" placeholder="Date of Birth" />
+
+                {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
+                <select
+                    className="field-input"
+                    name="parent_id"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                >
+
+                    <option value="">Select A Parent</option>
+                    {parents.map((parent) => {
+
+                        return <option value={parent.id}> {parent.name}
+                        </option>
+
+                    })}
+                </select>
+                {touched.class_id && errors.class_id && <p>{errors.class_id}</p>}
+                <select
+                    className="field-input"
+                    name="class_id"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                >
+                    <option value="">Select A Class</option>
+                    {classes.map((class1) => {
+
+                        return <option value={class1.id}> {class1.name}
+                        </option>
+
+                    })}
+                </select>
+
+                {/* {touched.class_id && errors.class_id && <p>{errors.class_id}</p>}
+                <Field className="field-input" type="text" name="class_id" placeholder="Parent" />
+
+                {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
+                <Field className="field-input" type="text" name="parent_id" placeholder="Parent" /> */}
+
+
+                <button type="submit" disabled={isSubmitting}>Add Student</button>
+
+            </Form>
+
+        </div>
     );
 
 }
 
-export default Students;
+const FormikStudentAdd = withFormik({
+    mapPropsToValues({ name, dob, class_id, parent_id }) {
+        return {
+            name: name || "",
+            dob: dob || "",
+            class_id: class_id || "",
+            parent_id: parent_id || ""
+
+        };
+    },
+    validationSchema: Yup.object().shape({
+        name: Yup.string()
+            .required(),
+        class_id: Yup.number('please enter a number')
+            .required('Make Sure to Choose a Class'),
+        parent_id: Yup.number('Please enter a number')
+            .required('Make Sure to Choose a Parent')
+    }),
+    handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
+        console.log(values)
+        axiosWithAuth()
+            .post("https://alifcloud.herokuapp.com/api/students/", values)
+            .then(res => {
+
+                setStatus(res.data)
+                resetForm();
+                setSubmitting(false);
+                props.history.push("/students")
+            })
+            .catch(err => {
+
+                setSubmitting(false);
+            });
+
+    }
+})(StudentAdd);
+
+export default FormikStudentAdd;
 
 
 
