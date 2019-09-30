@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
 
 
-import './StudentAdd.css';
+import '../include/forms.css';
 import { withFormik, Form, Field, Select } from "formik";
 import * as Yup from "yup";
 
@@ -55,7 +55,7 @@ function StudentAdd({ values,
                 {touched.name && errors.name && <p>{errors.name}</p>}
                 <Field className="field-input" type="text" name="name" placeholder="name" />
                 {touched.dob && errors.dob && <p>{errors.dob}</p>}
-                <Field className="field-input" type="text" name="dob" placeholder="Date of Birth" />
+                <Field className="field-input" type="date" name="dob" placeholder="Date of Birth" />
 
                 {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
                 <select
@@ -118,6 +118,7 @@ const FormikStudentAdd = withFormik({
     validationSchema: Yup.object().shape({
         name: Yup.string()
             .required(),
+        dob: Yup.date(),
         class_id: Yup.number('please enter a number')
             .required('Make Sure to Choose a Class'),
         parent_id: Yup.number('Please enter a number')
