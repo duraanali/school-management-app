@@ -18,7 +18,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 
@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
             flexShrink: 0,
+            position: "relative"
         },
     },
     appBar: {
@@ -56,6 +57,8 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3),
     },
 }));
+
+
 
 function Dashboard(props) {
     const { container } = props;
@@ -110,7 +113,7 @@ function Dashboard(props) {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Alif Cloud
-          </Typography>
+                     </Typography>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
@@ -145,7 +148,7 @@ function Dashboard(props) {
                 </Hidden>
             </nav>
             <main className={classes.content}>
-                <div className={classes.toolbar} />
+
 
 
             </main>

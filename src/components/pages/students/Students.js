@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +10,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+
+const StyledTableCell = withStyles(theme => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
 
 function Students() {
     const [students, setStudents] = useState([])
@@ -40,6 +50,10 @@ function Students() {
             overflowX: 'auto',
             marginLeft: 100,
             display: 'flex'
+        },
+        head: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
         },
         table: {
             minWidth: 240,
@@ -75,11 +89,11 @@ function Students() {
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">ID</TableCell>
-                                <TableCell align="left">NAME</TableCell>
-                                <TableCell align="left">DOB</TableCell>
-                                <TableCell align="left">PARENT</TableCell>
-                                <TableCell align="left">CLASS</TableCell>
+                                <StyledTableCell align="left">ID</StyledTableCell>
+                                <StyledTableCell align="left">NAME</StyledTableCell>
+                                <StyledTableCell align="left">DOB</StyledTableCell>
+                                <StyledTableCell align="left">PARENT</StyledTableCell>
+                                <StyledTableCell align="left">CLASS</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
