@@ -11,6 +11,9 @@ function RegisterForm({ errors, touched, isSubmitting, status }) {
                 <h2>Sign Up</h2>
                 <Form className="loginForm">
 
+                    {touched.name && errors.name && <p>{errors.name}</p>}
+                    <Field className="zr_un_email valid" type="text" name="name" placeholder="name" />
+
                     {touched.email && errors.email && <p>{errors.email}</p>}
                     <Field className="zr_un_email valid" type="email" name="email" placeholder="Email" />
 
@@ -30,8 +33,9 @@ function RegisterForm({ errors, touched, isSubmitting, status }) {
 }
 
 const FormikLoginForm = withFormik({
-    mapPropsToValues({ username, email, password }) {
+    mapPropsToValues({ name, email, password }) {
         return {
+            name: name || "",
             email: email || "",
             password: password || "",
 
@@ -39,6 +43,8 @@ const FormikLoginForm = withFormik({
         };
     },
     validationSchema: Yup.object().shape({
+        name: Yup.string()
+            .required(),
         email: Yup.string()
             .required(),
         password: Yup.string()
@@ -48,7 +54,7 @@ const FormikLoginForm = withFormik({
     handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
 
         axiosWithAuth()
-            .post("http://localhost:5000/api/admins/register", values)
+            .post("https://alifcloud.herokuapp.com/api/admins/register", values)
             .then(res => {
 
                 setStatus(res.data)
