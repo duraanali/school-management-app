@@ -17,7 +17,9 @@ import RegisterForm from './components/register/RegisterForm';
 import FormikClassesAdd from './components/pages/classes/ClassesAdd';
 import FormikTeacherAdd from './components/pages/teachers/TeacherAdd';
 import FormikAdminAdd from './components/pages/admins/AdminAdd';
+
 import FormikStudentEdit from './components/pages/students/StudentEdit';
+
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
 
 
       <PrivateRoute exact path="/studentedit/:id" component={FormikStudentEdit} />
+
 
     </div>
   );

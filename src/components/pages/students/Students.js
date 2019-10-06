@@ -57,6 +57,7 @@ function Students() {
         },
         table: {
             minWidth: 240,
+
         },
         title: {
             width: '100%',
@@ -64,6 +65,8 @@ function Students() {
             overflowX: 'auto',
             marginLeft: 100
         },
+
+
         add: {
             width: '100%',
             marginTop: theme.spacing(3),
