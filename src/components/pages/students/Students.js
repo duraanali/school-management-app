@@ -29,7 +29,7 @@ function Students() {
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/students/')
             .then(res => {
-                console.log('Inside axios', res.data)
+                console.log('Inside axios', res)
 
                 setStudents(res.data)
 
@@ -57,6 +57,7 @@ function Students() {
         },
         table: {
             minWidth: 240,
+
         },
         title: {
             width: '100%',
@@ -64,6 +65,8 @@ function Students() {
             overflowX: 'auto',
             marginLeft: 100
         },
+
+
         add: {
             width: '100%',
             marginTop: theme.spacing(3),
@@ -94,6 +97,7 @@ function Students() {
                                 <StyledTableCell align="left">DOB</StyledTableCell>
                                 <StyledTableCell align="left">PARENT</StyledTableCell>
                                 <StyledTableCell align="left">CLASS</StyledTableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
