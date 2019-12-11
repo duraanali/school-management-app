@@ -89,12 +89,6 @@ function StudentAdd({ values,
                     })}
                 </select>
 
-                {/* {touched.class_id && errors.class_id && <p>{errors.class_id}</p>}
-                <Field className="field-input" type="text" name="class_id" placeholder="Parent" />
-
-                {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
-                <Field className="field-input" type="text" name="parent_id" placeholder="Parent" /> */}
-
 
                 <button type="submit" disabled={isSubmitting}>Add Student</button>
 

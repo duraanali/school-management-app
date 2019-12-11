@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function Dashboard(props) {
+function Navigation(props) {
     const { container } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -156,7 +156,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+Navigation.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
@@ -164,4 +164,4 @@ Dashboard.propTypes = {
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default Dashboard;
+export default Navigation;
