@@ -21,15 +21,16 @@ const StyledTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-function Students() {
+function Students({ id }) {
     const [students, setStudents] = useState([])
 
-
+    console.log('students -->', students)
     useEffect(() => {
         axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/students/')
+            .get('https://alifcloud.herokuapp.com/api/students')
             .then(res => {
-                console.log('Inside axios', res)
+
+                console.log('Inside axios', res.data)
 
                 setStudents(res.data)
 
@@ -95,21 +96,25 @@ function Students() {
                                 <StyledTableCell align="left">ID</StyledTableCell>
                                 <StyledTableCell align="left">NAME</StyledTableCell>
                                 <StyledTableCell align="left">DOB</StyledTableCell>
-                                <StyledTableCell align="left">PARENT</StyledTableCell>
                                 <StyledTableCell align="left">CLASS</StyledTableCell>
+                                <StyledTableCell align="left">PARENT</StyledTableCell>
+                                <StyledTableCell align="left">ACTION</StyledTableCell>
+
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {students.map((student) => {
 
-                                return <TableRow key={student.name}>
+                                return <TableRow>
 
-                                    <TableCell align="left">{student.id}</TableCell>
-                                    <TableCell align="left">{student.name}</TableCell>
-                                    <TableCell align="left">{student.dob}</TableCell>
-                                    <TableCell align="left">{student.parent_id}</TableCell>
-                                    <TableCell align="left">{student.class_id}</TableCell>
+                                    <TableCell key={student.id} align="left">{student.id}</TableCell>
+                                    <TableCell key={student.name} align="left">{student.name}</TableCell>
+                                    <TableCell key={student.name} align="left">{student.dob}</TableCell>
+                                    <TableCell key={student.name} align="left">{student.class_id}</TableCell>
+                                    <TableCell key={student.name} align="left">{student.parent_id}</TableCell>
+                                    <TableCell key={student.name} align="left"><Link to={`/studentedit/${id}`}> Edit </Link></TableCell>
+
                                 </TableRow>
 
                             })}
