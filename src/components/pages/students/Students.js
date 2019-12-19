@@ -24,13 +24,11 @@ const StyledTableCell = withStyles(theme => ({
 function Students({ id }) {
     const [students, setStudents] = useState([])
 
-    console.log('students -->', students)
     useEffect(() => {
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/students')
             .then(res => {
 
-                console.log('Inside axios', res.data)
 
                 setStudents(res.data)
 
@@ -109,11 +107,11 @@ function Students({ id }) {
                                 return <TableRow>
 
                                     <TableCell key={student.id} align="left">{student.id}</TableCell>
-                                    <TableCell key={student.name} align="left">{student.name}</TableCell>
-                                    <TableCell key={student.name} align="left">{student.dob}</TableCell>
-                                    <TableCell key={student.name} align="left">{student.class_id}</TableCell>
-                                    <TableCell key={student.name} align="left">{student.parent_id}</TableCell>
-                                    <TableCell key={student.name} align="left"><Link to={`/studentedit/${id}`}> Edit </Link></TableCell>
+                                    <TableCell key={student.id} align="left">{student.name}</TableCell>
+                                    <TableCell key={student.id} align="left">{student.dob}</TableCell>
+                                    <TableCell key={student.id} align="left">{student.class_id}</TableCell>
+                                    <TableCell key={student.id} align="left">{student.parent_id}</TableCell>
+                                    <TableCell key={student.id} align="left"><Link to={`/studentedit/${student.id}`}> Edit </Link></TableCell>
 
                                 </TableRow>
 
