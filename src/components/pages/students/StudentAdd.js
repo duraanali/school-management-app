@@ -13,7 +13,7 @@ function StudentAdd({ values,
     handleBlur,
     handleChange,
     handleSubmit,
-    isSubmitting, }) {
+    isSubmitting }) {
 
     const [parents, setParents] = useState([])
     const [classes, setClasses] = useState([])

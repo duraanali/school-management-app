@@ -21,7 +21,7 @@ function RegisterForm({ errors, touched, isSubmitting, status }) {
                     <Field type="password" name="password" placeholder="Password" />
 
                     <button type="submit" disabled={isSubmitting}>Register</button>
-                    <p>Already Have An Account? <Link to="/">Sign In</Link></p>
+                    <p>Already Have An Account? <Link to="/login">Sign In</Link></p>
                 </Form>
 
                 <div>

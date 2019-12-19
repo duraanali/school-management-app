@@ -27,10 +27,10 @@ function App() {
     <div>
 
 
-      <Route exact path="/" component={LoginForm} />
+      <Route exact path="/login" component={LoginForm} />
       <Route exact path="/registerform" component={RegisterForm} />
 
-      <PrivateRoute component={Navigation} />
+      <PrivateRoute exact component={Navigation} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <PrivateRoute exact path="/students" component={Students} />
       <PrivateRoute exact path="/admins" component={Admins} />
@@ -46,8 +46,7 @@ function App() {
 
 
 
-      <PrivateRoute  path="/classesedit/:id" component={FormikClassesEdit} />
-
+      <PrivateRoute path="/classesedit/:id" component={FormikClassesEdit} />
       <PrivateRoute exact path="/studentedit/:id" component={FormikStudentEdit} />
 
     </div>
