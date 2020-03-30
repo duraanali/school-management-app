@@ -9,7 +9,7 @@ import Admins from './components/pages/admins/Admins';
 import Teachers from './components/pages/teachers/Teachers';
 import Classes from './components/pages/classes/Classes';
 import Parents from './components/pages/parents/Parents';
-import Navigation from "./components/pages/header/Navigation";
+import Navigation from "./components/layout/sidebar/Navigation";
 import StudentAdd from "./components/pages/students/StudentAdd"
 import ParentAdd from "./components/pages/parents/ParentAdd"
 import LoginForm from './components/login/LoginForm';
