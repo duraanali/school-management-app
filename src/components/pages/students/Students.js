@@ -26,10 +26,9 @@ function Students({ id }) {
 
     useEffect(() => {
         axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/students')
+            .get('https://alifcloud.herokuapp.com/api/students/')
             .then(res => {
-
-
+                console.log("inside useeffect", res.data)
                 setStudents(res.data)
 
             })
