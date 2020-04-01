@@ -1,33 +1,21 @@
 
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import { BrowserRouter as Router } from "react-router-dom";
-// import './index.css';
-
-
-// import { render } from 'react-dom';
-// import { Provider } from 'react-redux';
-
-// import store from './store';
-// import Page from './Page';
-
-// const App = () => (
-//     <Provider store={store}>
-//         <Page />
-
-//     </Provider>
-// );
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import './index.css';
-import App from './App';
-
+import { createBrowserHistory } from "history";
+import {Router, Route, Switch, Redirect } from "react-router-dom";
+import FormikLoginForm from "./components/login/LoginForm"
+import "bootstrap/dist/css/bootstrap.css";
+import "./assets/demo/demo.css";
+import AdminAccount from "./components/layout/AdminAccount";
+import PrivateRoute from './components/PrivateRoute';
+const hist = createBrowserHistory();
 ReactDOM.render(
-    <Router>
-        <App />
-    </Router>, document.getElementById('root'));
+    <Router history={hist}>
+      <Switch>
+        <Route path="/login" component={FormikLoginForm} />
+        <Route path="/" render={props => <AdminAccount {...props} />} />
+      </Switch>
+    </Router>,
+    document.getElementById("root")
+  );
