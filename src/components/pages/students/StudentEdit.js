@@ -2,9 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
 
 
-import '../include/forms.css';
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+// reactstrap components
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    CardTitle,
+    FormGroup,
+    Input,
+    Row,
+    Col
+  } from "reactstrap";
 
 const FormikStudentEdit = withFormik({
     mapPropsToValues({ name, dob, class_id, parent_id }) {
@@ -86,24 +98,27 @@ function StudentEdit({ values,
 
 
     return (
-
-        <div>
-
-
-
-            <Form className="addForm">
-                <h3>Add Student</h3>
+        <>
+        <div className="content">
+            <Row>
+            <Col md="12">
+              <Card className="card-user">
+                <CardHeader>
+                  <CardTitle tag="h5">Edit Student</CardTitle>
+                </CardHeader>
+                <CardBody>
+            <Form>
+                
 
                 {touched.name && errors.name && <p>{errors.name}</p>}
 
-                <Field className="field-input" value={values.name} type="text" name="name" placeholder="name" />
-
+                <Input value={values.name} type="text" name="name" placeholder="name" />
+               
                 {touched.dob && errors.dob && <p>{errors.dob}</p>}
-                <Field className="field-input" type="date" name="dob" placeholder="Date of Birth" />
+                <Input type="date" name="dob" placeholder="Date of Birth" />
 
                 {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
-                <select
-                    className="field-input"
+                <Input type="select"
                     name="parent_id"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -116,10 +131,9 @@ function StudentEdit({ values,
                         </option>
 
                     })}
-                </select>
+                </Input>
                 {touched.class_id && errors.class_id && <p>{errors.class_id}</p>}
-                <select
-                    className="field-input"
+                <Input type="select"
                     name="class_id"
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -131,14 +145,28 @@ function StudentEdit({ values,
                         </option>
 
                     })}
-                </select>
+                </Input>
 
 
-                <button type="submit" disabled={isSubmitting}>Add Student</button>
+                <Row>
+                      <div className="update ml-auto mr-auto">
+                        <Button
+                          className="btn-round"
+                          color="primary"
+                          type="submit"
+                        >
+                          Update Student
+                        </Button>
+                      </div>
+                    </Row>
 
             </Form>
-
+            </CardBody>
+              </Card>
+            </Col>
+        </Row>
         </div>
+        </>
     );
 
 }

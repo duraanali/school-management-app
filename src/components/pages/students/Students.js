@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-
-const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    Table,
+    Row,
+    Button,
+    Col
+  } from "reactstrap";
+  import "../../../assets/css/paper-dashboard.min.css";
+  import "../../../assets/css/paper-dashboard.css";
+  import "../../../assets/demo/demo.css";
 
 function Students({ id }) {
     const [students, setStudents] = useState([])
@@ -35,91 +29,49 @@ function Students({ id }) {
             .catch(err => console.log(err.response));
     }, []);
 
-    const useStyles = makeStyles(theme => ({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        header: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100,
-            display: 'flex'
-        },
-        head: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        table: {
-            minWidth: 240,
-
-        },
-        title: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-
-
-        add: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 500
-        }
-    }));
-
-    const classes = useStyles();
-
     return (
+        <>
+        <div className="content">
+          <Row>
+            <Col md="12">
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h4">Students</CardTitle>
 
-        <React.Fragment>
-            <CssBaseline />
-            <Container fixed>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>Students</h2>
-                    <h2 className={classes.add}>
-                        <Link to="/studentadd">Add Student</Link>
-                    </h2>
-                </div>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left">ID</StyledTableCell>
-                                <StyledTableCell align="left">NAME</StyledTableCell>
-                                <StyledTableCell align="left">DOB</StyledTableCell>
-                                <StyledTableCell align="left">CLASS</StyledTableCell>
-                                <StyledTableCell align="left">PARENT</StyledTableCell>
-                                <StyledTableCell align="left">ACTION</StyledTableCell>
+                  <Button color="danger"><i className="nc-icon nc-simple-add" /> Add Student</Button>
+                </CardHeader>
+                <CardBody>
+                <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Class</th>
+                        <th>Parent</th>
+                        <th>Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {students.map((student) => {
 
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {students.map((student) => {
-
-                                return <TableRow>
-
-                                    <TableCell key={student.id} align="left">{student.id}</TableCell>
-                                    <TableCell key={student.id} align="left">{student.name}</TableCell>
-                                    <TableCell key={student.id} align="left">{student.dob}</TableCell>
-                                    <TableCell key={student.id} align="left">{student.class_id}</TableCell>
-                                    <TableCell key={student.id} align="left">{student.parent_id}</TableCell>
-                                    <TableCell key={student.id} align="left"><Link to={`/studentedit/${student.id}`}> Edit </Link></TableCell>
-
-                                </TableRow>
-
-                            })}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </Container>
-        </React.Fragment>
+                    return <tr>
+                        <td key={student.id}>{student.id}</td>
+                        <td key={student.id}>{student.name}</td>
+                        <td key={student.id}>{student.dob}</td>
+                        <td key={student.id}>{student.class_id}</td>
+                        <td key={student.id}>{student.parent_id}</td>
+                        <td key={student.id}><Link to={`/studentedit/${student.id}`}> Edit </Link></td>
+                      </tr>
+                           })}
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      </>
     );
 
 }
