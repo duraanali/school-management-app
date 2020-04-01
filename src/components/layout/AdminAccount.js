@@ -6,7 +6,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
-import Topbar from "../layout/topbar/Topbar";
+
 import Footer from "./footer/Footer";
 import Navigation from "./sidebar/Navigation";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
           activeColor={this.state.activeColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
-          <Topbar {...this.props} />
+     
           <Switch>
             {AllPages.map((prop, key) => {
               return (
