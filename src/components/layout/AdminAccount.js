@@ -6,7 +6,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
-import Topbar from "../layout/topbar/Topbar";
+import Topbar from "./topbar/Topbar";
 import Footer from "./footer/Footer";
 import Navigation from "./sidebar/Navigation";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
