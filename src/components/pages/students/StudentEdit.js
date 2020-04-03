@@ -40,15 +40,16 @@ const FormikStudentEdit = withFormik({
     }),
     handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
 
-        console.log("the id", props.match.params.id)
+        console.log("the id", props)
         axiosWithAuth()
             .put(`https://alifcloud.herokuapp.com/api/students/${props.match.params.id}`, values)
             .then(res => {
                 console.log("inside put api", res.data)
+                console.log("values", values)
                 setStatus(res.data)
                 resetForm();
                 setSubmitting(false);
-                props.history.push("/students")
+                props.history.push("/AdminAccount/students")
             })
             .catch(err => {
 
@@ -76,7 +77,7 @@ function StudentEdit({ values,
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/parents/')
             .then(res => {
-                console.log('Inside axios', res.data)
+            
 
                 setParents(res.data)
 
@@ -88,7 +89,7 @@ function StudentEdit({ values,
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/classes/')
             .then(res => {
-                console.log('Inside axios', res.data)
+               
 
                 setClasses(res.data)
 
@@ -109,13 +110,12 @@ function StudentEdit({ values,
                 <CardBody>
             <Form>
                 
-
                 {touched.name && errors.name && <p>{errors.name}</p>}
 
-                <Input value={values.name} type="text" name="name" placeholder="name" />
+                <Input value={values.name} type="text" name="name" tag={Field} placeholder="name" />
                
                 {touched.dob && errors.dob && <p>{errors.dob}</p>}
-                <Input type="date" name="dob" placeholder="Date of Birth" />
+                <Input type="date" name="dob"  tag={Field} placeholder="Date of Birth" />
 
                 {touched.parent_id && errors.parent_id && <p>{errors.parent_id}</p>}
                 <Input type="select"
@@ -154,6 +154,7 @@ function StudentEdit({ values,
                           className="btn-round"
                           color="primary"
                           type="submit"
+                          disabled={isSubmitting}
                         >
                           Update Student
                         </Button>

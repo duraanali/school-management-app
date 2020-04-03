@@ -11,9 +11,7 @@ import {
     Button,
     Col
   } from "reactstrap";
-  import "../../../assets/css/paper-dashboard.min.css";
-  import "../../../assets/css/paper-dashboard.css";
-  import "../../../assets/demo/demo.css";
+
 
 function Students({ id }) {
     const [students, setStudents] = useState([])
@@ -30,26 +28,26 @@ function Students({ id }) {
     }, []);
 
     return (
-        <>
+       
         <div className="content">
           <Row>
-            <Col md="12">
+            <Col>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Students</CardTitle>
+                  <CardTitle tag="h5">Students</CardTitle>
 
-                  <Button color="danger"><i className="nc-icon nc-simple-add" /> Add Student</Button>
+                  <Link to={`/AdminAccount/studentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Student</Button></Link>
                 </CardHeader>
                 <CardBody>
                 <Table responsive>
                     <thead className="text-primary">
                       <tr>
-                        <th>ID</th>
+                        <th>ID#</th>
                         <th>Name</th>
                         <th>DOB</th>
                         <th>Class</th>
                         <th>Parent</th>
-                        <th>Edit</th>
+                        <th>Edit/Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,7 +59,7 @@ function Students({ id }) {
                         <td key={student.id}>{student.dob}</td>
                         <td key={student.id}>{student.class_id}</td>
                         <td key={student.id}>{student.parent_id}</td>
-                        <td key={student.id}><Link to={`/studentedit/${student.id}`}> Edit </Link></td>
+                        <td key={student.id}><Link to={`/AdminAccount/studentedit/${student.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/studentedit/${student.id}`}><Button color="danger" active> Delete </Button></Link></td>
                       </tr>
                            })}
                     </tbody>
@@ -71,7 +69,7 @@ function Students({ id }) {
             </Col>
           </Row>
         </div>
-      </>
+     
     );
 
 }
