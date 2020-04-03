@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
 
 
-import '../include/forms.css';
 import { withFormik, Form, Field, Select } from "formik";
 import * as Yup from "yup";
 
@@ -127,7 +126,7 @@ const FormikStudentAdd = withFormik({
                 setStatus(res.data)
                 resetForm();
                 setSubmitting(false);
-                props.history.push("/students")
+                props.history.push("/AdminAccount/students")
             })
             .catch(err => {
 

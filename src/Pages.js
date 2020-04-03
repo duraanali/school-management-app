@@ -6,6 +6,8 @@ import Parents from "./components/pages/parents/Parents";
 import Students from "./components/pages/students/Students";
 import Teachers from "./components/pages/teachers/Teachers";
 import LoginForm from "./components/login/LoginForm"
+import StudentEdit from "./components/pages/students/StudentEdit";
+import StudentAdd from "./components/pages/students/StudentAdd";
 
 var Pages = [
   {
@@ -58,10 +60,17 @@ var Pages = [
     layout: "/AdminAccount"
   },
   {
-    path: "/login",
-    name: "Login",
+    path: "/studentedit/:id",
+    name: "Student Edit",
     icon: "nc-icon nc-caps-small",
-    component: LoginForm,
+    component: StudentEdit,
+    layout: "/AdminAccount"
+  },
+  {
+    path: "/studentadd",
+    name: "Student Add",
+    icon: "nc-icon nc-caps-small",
+    component: StudentAdd,
     layout: "/AdminAccount"
   }
 ];

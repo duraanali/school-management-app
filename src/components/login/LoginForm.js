@@ -60,7 +60,7 @@ const FormikLoginForm = withFormik({
                 resetForm();
 
                 localStorage.setItem('token', res.data.token);
-                props.history.push('/');
+                props.history.push('/AdminAccount/dashboard');
 
             })
             .catch(err => console.log(err.response));

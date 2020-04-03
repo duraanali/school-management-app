@@ -42,7 +42,7 @@ class Navigation extends React.Component {
         <div className="sidebar-wrapper" ref={this.sidebar}>
           <Nav>
             {Pages.map((prop, key) => {
-                console.log("all Paths", prop.name)
+             
               return (
                 <li>
                 <Route
