@@ -4,8 +4,6 @@ import React from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import { Nav } from "reactstrap";
 import Topbar from "./topbar/Topbar";
 import Footer from "./footer/Footer";
 import Navigation from "./sidebar/Navigation";
@@ -15,6 +13,10 @@ import "../../assets/css/paper-dashboard.css";
 import "../../assets/demo/demo.css";
 import AllPages from "../../Pages";
 import FormikStudentEdit from "../pages/students/StudentEdit";
+import FormikStudentAdd from "../pages/students/StudentAdd";
+import FormikParentEdit from "../pages/parents/ParentEdit";
+import FormikParentAdd from "../pages/parents/ParentAdd";
+
 
 var ps;
 
@@ -73,7 +75,10 @@ class Dashboard extends React.Component {
               );
             })}
           </Switch>
-          <Route path="/studentedit" component={FormikStudentEdit} />
+          <Route path="/studentedit/:id"  component={FormikStudentEdit} />
+          <Route path="/studentadd/"  component={FormikStudentAdd} />
+          <Route path="/parentedit/:id"  component={FormikParentEdit} />
+          <Route path="/parentadd/"  component={FormikParentAdd} />
           <Footer fluid />
         </div>
      

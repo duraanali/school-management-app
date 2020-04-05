@@ -1,80 +1,115 @@
-import React, { useEffect, useState } from 'react';
-import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchStudents } from "../../../actions";
+import { axiosWithAuth } from "../../../utility/axiosWithAuth";
+import { Link } from "react-router-dom";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardTitle,
-    Table,
-    Row,
-    Button,
-    Col
-  } from "reactstrap";
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Table,
+  Row,
+  Button,
+  Col,
+} from "reactstrap";
 
+function Students(props) {
+  const { error, loading, students } = props;
 
-function Students({ id }) {
-    const [students, setStudents] = useState([])
+  useEffect(() => {
+    props.dispatch(fetchStudents());
+  }, []);
 
-    useEffect(() => {
-        axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/students/')
-            .then(res => {
-                console.log("inside useeffect", res.data)
-                setStudents(res.data)
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
 
-            })
-            .catch(err => console.log(err.response));
-    }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-       
-        <div className="content">
-          <Row>
-            <Col>
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Students</CardTitle>
+  const deleteStudent = (event) => {
+    var id;
+    students.map((student) => {
+      id = student.id;
+      return id;
+    });
+    event.preventDefault();
+    axiosWithAuth()
+      .delete(`https://alifcloud.herokuapp.com/api/students/${id}`)
+      .then((res) => {
+        props.dispatch(fetchStudents());
+      });
+  };
+  console.log(props)
+  return (
+    <div className="content">
+      <Row>
+        <Col>
+          <Card>
+            <CardHeader>
+              <CardTitle tag="h5">Students</CardTitle>
 
-                  <Link to={`/AdminAccount/studentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Student</Button></Link>
-                </CardHeader>
-                <CardBody>
-                <Table responsive>
-                    <thead className="text-primary">
+              <Link to={`/studentadd/`}>
+                <Button color="danger">
+                  <i className="nc-icon nc-simple-add" /> Add Student
+                </Button>
+              </Link>
+            </CardHeader>
+            <CardBody>
+              <Table responsive>
+                <thead className="text-primary">
+                  <tr>
+                    <th>ID#</th>
+                    <th>NAME</th>
+                    <th>DOB</th>
+                    <th>CLASS</th>
+                    <th>PARENT</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {students.map((student) => {
+                    return (
                       <tr>
-                        <th>ID#</th>
-                        <th>Name</th>
-                        <th>DOB</th>
-                        <th>Class</th>
-                        <th>Parent</th>
-                        <th>Edit/Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {students.map((student) => {
-
-                    return <tr>
                         <td key={student.id}>{student.id}</td>
                         <td key={student.id}>{student.name}</td>
                         <td key={student.id}>{student.dob}</td>
                         <td key={student.id}>{student.class_id}</td>
                         <td key={student.id}>{student.parent_id}</td>
-                        <td key={student.id}><Link to={`/AdminAccount/studentedit/${student.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/studentedit/${student.id}`}><Button color="danger" active> Delete </Button></Link></td>
+                        <td key={student.id}>
+                          <Link to={`/studentedit/${student.id}`}>
+                            <Button color="success" active>
+                              {" "}
+                              Edit{" "}
+                            </Button>
+                          </Link>{" "}
+                          <Button color="danger" active onClick={deleteStudent}>
+                            {" "}
+                            Delete{" "}
+                          </Button>
+                        </td>
                       </tr>
-                           })}
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-     
-    );
-
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Students;
 
+const mapStateToProps = state => {
+  return {
+  students: state.StudentsReducer.students,
+  loading: state.StudentsReducer.loading,
+  error: state.StudentsReducer.error,
+  };
+};
 
-
+export default connect(mapStateToProps)(Students);

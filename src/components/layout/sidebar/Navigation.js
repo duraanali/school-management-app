@@ -1,18 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
 import Pages from "../../../Pages";
 import "../../../assets/css/paper-dashboard.min.css";
 import "../../../assets/css/paper-dashboard.css";
 import "../../../assets/demo/demo.css";
 
 class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   // verifies if routeName is the one active (in browser input)
 
   render() {
@@ -24,16 +20,15 @@ class Navigation extends React.Component {
         data-active-color={this.props.activeColor}
       >
         <div className="logo">
-          <a
-            href="https://www.creative-tim.com"
+          <p
             className="simple-text logo-mini"
           >
             <div className="logo-img">
               {/* <img src={logo} alt="react-logo" /> */}
             </div>
-          </a>
+          </p>
           <a
-            href="https://www.creative-tim.com"
+            href="/"
             className="simple-text logo-normal"
           >
             Alif Cloud
