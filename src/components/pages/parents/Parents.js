@@ -1,126 +1,117 @@
-import React, { useEffect, useState } from 'react';
-import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchParents } from "../../../actions";
+import { axiosWithAuth } from "../../../utility/axiosWithAuth";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Table,
+  Row,
+  Button,
+  Col,
+} from "reactstrap";
 
-const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
+function Parents(props) {
+  const { error, loading, parents } = props;
 
-function Parents() {
-    const [parents, setParents] = useState([])
+  useEffect(() => {
+    props.dispatch(fetchParents());
+  }, []);
 
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
 
-    useEffect(() => {
-        axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/parents/')
-            .then(res => {
-                console.log('Inside axios', res.data)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-                setParents(res.data)
+  const deleteParent = (event) => {
+    var id;
+    parents.map((parent) => {
+      id = parent.id;
+      return id;
+    });
+    event.preventDefault();
+    axiosWithAuth()
+      .delete(`https://alifcloud.herokuapp.com/api/parents/${id}`)
+      .then((res) => {
+        props.dispatch(fetchParents());
+      });
+  };
+  console.log(props)
+  return (
+    <div className="content">
+      <Row>
+        <Col>
+          <Card>
+            <CardHeader>
+              <CardTitle tag="h5">Parents</CardTitle>
 
-            })
-            .catch(err => console.log(err.response));
-    }, []);
-
-    const useStyles = makeStyles(theme => ({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        header: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100,
-            display: 'flex'
-        },
-        head: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        table: {
-            minWidth: 240,
-        },
-        title: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        add: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 500
-        }
-    }));
-
-    const classes = useStyles();
-
-    return (
-
-        <React.Fragment>
-            <CssBaseline />
-            <Container fixed>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>Parents</h2>
-                    <h2 className={classes.add}>
-                        <Link to="/parentadd">Add New Parent</Link>
-                    </h2>
-                </div>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left">ID</StyledTableCell>
-                                <StyledTableCell align="left">NAME</StyledTableCell>
-                                <StyledTableCell align="left">PHONE</StyledTableCell>
-                                <StyledTableCell align="left">ADDRESS</StyledTableCell>
-                                <StyledTableCell align="left">SPOUSE</StyledTableCell>
-                                <StyledTableCell align="left">SPOUSE PHONE</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {parents.map((parent) => {
-
-                                return <TableRow key={parent.name}>
-
-                                    <TableCell align="left">{parent.id}</TableCell>
-                                    <TableCell align="left">{parent.name}</TableCell>
-                                    <TableCell align="left">{parent.phone}</TableCell>
-                                    <TableCell align="left">{parent.address}</TableCell>
-                                    <TableCell align="left">{parent.spouse_name}</TableCell>
-                                    <TableCell align="left">{parent.spouse_phone}</TableCell>
-                                </TableRow>
-
-                            })}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </Container>
-        </React.Fragment>
-    );
-
+              <Link to={`/parentadd/`}>
+                <Button color="danger">
+                  <i className="nc-icon nc-simple-add" /> Add Parent
+                </Button>
+              </Link>
+            </CardHeader>
+            <CardBody>
+              <Table responsive>
+                <thead className="text-primary">
+                  <tr>
+                    <th>ID#</th>
+                    <th>NAME</th>
+                    <th>PHONE</th>
+                    <th>ADDRESS</th>
+                    <th>SPOUSE</th>
+                    <th>SPOUSE PHONE</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {parents.map((parent) => {
+                    return (
+                      <tr>
+                        <td key={parent.id}>{parent.id}</td>
+                        <td key={parent.id}>{parent.name}</td>
+                        <td key={parent.id}>{parent.phone}</td>
+                        <td key={parent.id}>{parent.address}</td>
+                        <td key={parent.id}>{parent.spouse_name}</td>
+                        <td key={parent.id}>{parent.spouse_phone}</td>
+                        <td key={parent.id}>
+                          <Link to={`/parentedit/${parent.id}`}>
+                            <Button color="success" active>
+                              {" "}
+                              Edit{" "}
+                            </Button>
+                          </Link>{" "}
+                          <Button color="danger" active onClick={deleteParent}>
+                            {" "}
+                            Delete{" "}
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Parents;
 
+const mapStateToProps = state => {
+  return {
+  parents: state.ParentsReducer.parents,
+  loading: state.ParentsReducer.loading,
+  error: state.ParentsReducer.error,
+  };
+};
 
-
+export default connect(mapStateToProps)(Parents);

@@ -1,13 +1,10 @@
 import Dashboard from "./components/pages/Dashboard";
 import Admins from "./components/pages/admins/Admins";
-import Icons from "./components/pages/Icons";
 import Classes from "./components/pages/classes/Classes";
 import Parents from "./components/pages/parents/Parents";
 import Students from "./components/pages/students/Students";
 import Teachers from "./components/pages/teachers/Teachers";
-import LoginForm from "./components/login/LoginForm"
-import StudentEdit from "./components/pages/students/StudentEdit";
-import StudentAdd from "./components/pages/students/StudentAdd";
+import Settings from "./components/pages/settings/settings";
 
 var Pages = [
   {
@@ -18,24 +15,10 @@ var Pages = [
     layout: "/AdminAccount"
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-diamond",
-    component: Icons,
-    layout: "/AdminAccount"
-  },
-  {
-    path: "/admins",
-    name: "Admins",
-    icon: "nc-icon nc-pin-3",
-    component: Admins,
-    layout: "/AdminAccount"
-  },
-  {
-    path: "/classes",
-    name: "Classes",
-    icon: "nc-icon nc-bell-55",
-    component: Classes,
+    path: "/students",
+    name: "Students",
+    icon: "nc-icon nc-paper",
+    component: Students,
     layout: "/AdminAccount"
   },
   {
@@ -46,31 +29,31 @@ var Pages = [
     layout: "/AdminAccount"
   },
   {
-    path: "/students",
-    name: "Students",
-    icon: "nc-icon nc-tile-56",
-    component: Students,
+    path: "/classes",
+    name: "Classes",
+    icon: "nc-icon nc-bank",
+    component: Classes,
     layout: "/AdminAccount"
   },
   {
     path: "/teachers",
     name: "Teachers",
-    icon: "nc-icon nc-caps-small",
+    icon: "nc-icon nc-circle-10",
     component: Teachers,
     layout: "/AdminAccount"
   },
   {
-    path: "/studentedit/:id",
-    name: "Student Edit",
-    icon: "nc-icon nc-caps-small",
-    component: StudentEdit,
+    path: "/admins",
+    name: "Admins",
+    icon: "nc-icon nc-button-pause",
+    component: Admins,
     layout: "/AdminAccount"
   },
   {
-    path: "/studentadd",
-    name: "Student Add",
-    icon: "nc-icon nc-caps-small",
-    component: StudentAdd,
+    path: "/settings",
+    name: "Settings",
+    icon: "nc-icon nc-settings",
+    component: Settings,
     layout: "/AdminAccount"
   }
 ];

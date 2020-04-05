@@ -19,7 +19,7 @@ function LoginForm({ errors, touched, status, props }) {
 
                     <button type="submit" >Sign In</button>
                     <p><b>Demo Login Info:</b></p>
-                    <h5>Email: admin@mail.com  - password: password</h5>
+                    <p>Email: admin@mail.com  - password: password</p>
                  
                     <p>Don't have an account? <Link to="../RegisterForm">Create Account</Link></p>
                 </Form>

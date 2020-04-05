@@ -1,122 +1,77 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    Table,
+    Row,
+    Button,
+    Col
+  } from "reactstrap";
 
-const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
 
-function Admins() {
+function Admins({ id }) {
     const [admins, setAdmins] = useState([])
-
 
     useEffect(() => {
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/admins/all')
             .then(res => {
-                console.log('Inside axios', res.data)
-
+                console.log("inside useeffect", res.data)
                 setAdmins(res.data)
 
             })
             .catch(err => console.log(err.response));
     }, []);
 
-    const useStyles = makeStyles(theme => ({
-        root: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        header: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100,
-            display: 'flex'
-        },
-        head: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        table: {
-            minWidth: 240,
-        },
-        title: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 100
-        },
-        add: {
-            width: '100%',
-            marginTop: theme.spacing(3),
-            overflowX: 'auto',
-            marginLeft: 500
-        }
-    }));
-
-    const classes = useStyles();
-
     return (
+       
+        <div className="content">
+          <Row>
+            <Col>
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h5">Admins</CardTitle>
 
-        <React.Fragment>
-            <CssBaseline />
-            <Container fixed>
-                <div className={classes.header}>
-                    <h2 className={classes.title}>Admins</h2>
-                    <h2 className={classes.add}>
-                        <Link to="/adminadd">Add New Admin</Link>
-                    </h2>
-                </div>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="left">ID</StyledTableCell>
-                                <StyledTableCell align="left">NAME</StyledTableCell>
-                                <StyledTableCell align="left">EMAIL</StyledTableCell>
+                  <Link to={`/AdminAccount/parentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Admin</Button></Link>
+                </CardHeader>
+                <CardBody>
+                <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>ID#</th>
+                        <th>NAME</th>
+                        <th>EMAIL</th>
+                        <th>Edit/Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {admins.map((admin) => {
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {admins.map((admin) => {
-
-                                return <TableRow key={admin.name}>
-
-                                    <TableCell align="left">{admin.id}</TableCell>
-                                    <TableCell align="left">{admin.name}</TableCell>
-                                    <TableCell align="left">{admin.email}</TableCell>
-
-                                </TableRow>
-
-                            })}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </Container>
-        </React.Fragment>
+                    return <tr>
+                        <td key={admin.id}>{admin.id}</td>
+                        <td key={admin.id}>{admin.name}</td>
+                        <td key={admin.id}>{admin.email}</td>
+                        <td key={admin.id}><Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="danger" active> Delete </Button></Link></td>
+                      </tr>
+                           })}
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+     
     );
 
 }
 
 export default Admins;
+
 
 
 
