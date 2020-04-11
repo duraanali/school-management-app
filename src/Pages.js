@@ -4,7 +4,9 @@ import Classes from "./components/pages/classes/Classes";
 import Parents from "./components/pages/parents/Parents";
 import Students from "./components/pages/students/Students";
 import Teachers from "./components/pages/teachers/Teachers";
-import Settings from "./components/pages/settings/settings";
+import Settings from "./components/pages/settings/Settings";
+import Logout from "./components/pages/Logout"
+
 
 var Pages = [
   {
@@ -54,6 +56,14 @@ var Pages = [
     name: "Settings",
     icon: "nc-icon nc-settings",
     component: Settings,
+    layout: "/AdminAccount"
+  }
+  ,
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: "nc-icon nc-button-power",
+    component: Logout,
     layout: "/AdminAccount"
   }
 ];

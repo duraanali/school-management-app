@@ -31,7 +31,7 @@ export function fetchStudents() {
     return axiosWithAuth()
       .get(`https://alifcloud.herokuapp.com/api/students/`)
       .then((res) => {
-        console.log("inside useeffect", res.data);
+  
         dispatch(fetchStudentsSuccess(res.data));
       })
       .catch((error) => dispatch(fetchStudentsFailure(error)));
@@ -44,7 +44,7 @@ export function deleteStudent() {
     return axiosWithAuth()
       .delete(`https://alifcloud.herokuapp.com/api/students/${3}`)
       .then((res) => {
-        console.log("inside useeffect", res.data);
+  
         dispatch(deleteStudentsSuccess(res.data));
       })
       .catch((error) => dispatch(fetchStudentsFailure(error)));

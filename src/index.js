@@ -5,6 +5,12 @@ import {Router, Route, Switch } from "react-router-dom";
 import FormikLoginForm from "./components/login/LoginForm";
 import "bootstrap/dist/css/bootstrap.css";
 import "./assets/demo/demo.css";
+// Scripts
+import 'jquery/dist/jquery.min.js';
+import 'popper.js/dist/popper.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
+
+
 import PrivateRoute from './components/PrivateRoute';
 
 import { createStore, compose, applyMiddleware } from 'redux';

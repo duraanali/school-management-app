@@ -20,7 +20,7 @@ function Admins({ id }) {
         axiosWithAuth()
             .get('https://alifcloud.herokuapp.com/api/admins/all')
             .then(res => {
-                console.log("inside useeffect", res.data)
+          
                 setAdmins(res.data)
 
             })
@@ -36,7 +36,7 @@ function Admins({ id }) {
                 <CardHeader>
                   <CardTitle tag="h5">Admins</CardTitle>
 
-                  <Link to={`/AdminAccount/parentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Admin</Button></Link>
+                  {/* <Link to={`/AdminAccount/parentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Admin</Button></Link> */}
                 </CardHeader>
                 <CardBody>
                 <Table responsive>
@@ -45,7 +45,7 @@ function Admins({ id }) {
                         <th>ID#</th>
                         <th>NAME</th>
                         <th>EMAIL</th>
-                        <th>Edit/Delete</th>
+                      
                       </tr>
                     </thead>
                     <tbody>
@@ -55,7 +55,7 @@ function Admins({ id }) {
                         <td key={admin.id}>{admin.id}</td>
                         <td key={admin.id}>{admin.name}</td>
                         <td key={admin.id}>{admin.email}</td>
-                        <td key={admin.id}><Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="danger" active> Delete </Button></Link></td>
+                        {/* <td key={admin.id}><Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="danger" active> Delete </Button></Link></td> */}
                       </tr>
                            })}
                     </tbody>

@@ -2,7 +2,6 @@
 
 import React from "react";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch } from "react-router-dom";
 import Topbar from "./topbar/Topbar";
 import Footer from "./footer/Footer";
@@ -16,9 +15,12 @@ import FormikStudentEdit from "../pages/students/StudentEdit";
 import FormikStudentAdd from "../pages/students/StudentAdd";
 import FormikParentEdit from "../pages/parents/ParentEdit";
 import FormikParentAdd from "../pages/parents/ParentAdd";
+import FormikTeacherEdit from "../pages/teachers/TeacherEdit";
+import FormikTeacherAdd from "../pages/teachers/TeacherAdd";
+import FormikClassesEdit from "../pages/classes/ClassesEdit";
+import FormikClassesAdd from "../pages/classes/ClassesAdd";
+import FormikSettingsEdit from "../pages/settings/SettingsEdit";
 
-
-var ps;
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -29,18 +31,7 @@ class Dashboard extends React.Component {
     };
     this.mainPanel = React.createRef();
   }
-  componentDidMount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.mainPanel.current);
-      document.body.classList.toggle("perfect-scrollbar-on");
-    }
-  }
-  componentWillUnmount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps.destroy();
-      document.body.classList.toggle("perfect-scrollbar-on");
-    }
-  }
+
   componentDidUpdate(e) {
     if (e.history.action === "PUSH") {
       this.mainPanel.current.scrollTop = 0;
@@ -56,11 +47,13 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="wrapper">
+    
         <Navigation
           {...this.props}
           AllPages={AllPages}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
+ 
         />
         <div className="main-panel" ref={this.mainPanel}>
           <Topbar {...this.props} />
@@ -79,6 +72,11 @@ class Dashboard extends React.Component {
           <Route path="/studentadd/"  component={FormikStudentAdd} />
           <Route path="/parentedit/:id"  component={FormikParentEdit} />
           <Route path="/parentadd/"  component={FormikParentAdd} />
+          <Route path="/teacheredit/:id"  component={FormikTeacherEdit} />
+          <Route path="/teacheradd/"  component={FormikTeacherAdd} />
+          <Route path="/classesedit/:id"  component={FormikClassesEdit} />
+          <Route path="/classesadd/"  component={FormikClassesAdd} />
+          <Route path="/settingsedit/:id"  component={FormikSettingsEdit} />
           <Footer fluid />
         </div>
      

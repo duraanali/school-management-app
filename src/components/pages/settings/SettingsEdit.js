@@ -15,7 +15,7 @@ import {
 import { withFormik, Form } from "formik";
 import * as Yup from "yup";
 
-function TeacherEdit({
+function SettingsEdit({
   values,
   errors,
   status,
@@ -34,60 +34,36 @@ function TeacherEdit({
           <Col md="12">
             <Card className="card-user">
               <CardHeader>
-                <CardTitle tag="h5">Edit Teacher</CardTitle>
+                <CardTitle tag="h5">Edit School</CardTitle>
               </CardHeader>
               <CardBody>
                 <Form>
                   <Col className="pr-1" md="12">
                     <FormGroup>
-                      {touched.name && errors.name && <p>{errors.name}</p>}
+                      {touched.school_name && errors.school_name && <p>{errors.school_name}</p>}
                       <Input
                         type="text"
-                        name="name"
-                        placeholder="name"
+                        name="school_name"
+                        placeholder="school name"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
                     </FormGroup>
                   </Col>
+
                   <Col className="pr-1" md="12">
                     <FormGroup>
-                      {touched.phone && errors.phone && <p>{errors.phone}</p>}
+                      {touched.address && errors.address && <p>{errors.address}</p>}
                       <Input
-                        type="number"
-                        name="phone"
-                        placeholder="phone"
+                        type="text"
+                        name="address"
+                        placeholder="address"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
                     </FormGroup>
                   </Col>
-                  <Col className="pr-1" md="12">
-                    <FormGroup>
-                      {touched.email && errors.email && <p>{errors.email}</p>}
-                      <Input
-                        type="email"
-                        name="email"
-                        placeholder="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col className="pr-1" md="12">
-                    <FormGroup>
-                      {touched.password && errors.password && <p>{errors.password}</p>}
-                      <Input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </FormGroup>
-                  </Col>
-                  
-                  
+                 
                   <Row>
                     <div className="update ml-auto mr-auto">
                       <Button
@@ -96,7 +72,7 @@ function TeacherEdit({
                         type="submit"
                         disabled={isSubmitting}
                       >
-                        Edit Teacher
+                        Edit Parent
                       </Button>
                     </div>
                   </Row>
@@ -110,41 +86,38 @@ function TeacherEdit({
   );
 }
 
-const FormikTeacherEdit = withFormik({
-  mapPropsToValues({ name, phone, email, password }) {
+const FormikSettingsEdit = withFormik({
+  mapPropsToValues({ school_name, address }) {
     return {
-      name: name || "",
-      phone: phone || "",
-      email: email || "",
-      password: password || ""
+      school_name: school_name || "",
+      address: address || "",
+
 
     };
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
-    phone: Yup.number(),
-    email: Yup.string().required(),
-    password: Yup.string()
-            .min(5, "Password must be 16 characters or longer")
-            .required("Password is required")
+    school_name: Yup.string().max(15, 'Must be less than 10 characters!').required(),
+    address: Yup.string()
 
    
   }),
   handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
-    console.log(values);
+    
     var id = props.match.params.id
+    console.log("top ID", id);
     axiosWithAuth()
-      .put(`https://alifcloud.herokuapp.com/api/teachers/all/${id}`, values)
+      .put(`https://alifcloud.herokuapp.com/api/settings/${id}`, values)
       .then((res) => {
+        console.log("res.data", res.data);
         setStatus(res.data);
         resetForm();
         setSubmitting(false);
-        props.history.push("/AdminAccount/teachers");
+        props.history.push("/AdminAccount/settings");
       })
       .catch((err) => {
         setSubmitting(false);
       });
   },
-})(TeacherEdit);
+})(SettingsEdit);
 
-export default FormikTeacherEdit;
+export default FormikSettingsEdit;

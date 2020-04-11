@@ -78,19 +78,19 @@ class Topbar extends React.Component {
       });
     }
   }
-  // componentDidMount() {
-  //   window.addEventListener("resize", this.updateColor.bind(this));
-  // }
-  // componentDidUpdate(e) {
-  //   if (
-  //     window.innerWidth < 993 &&
-  //     e.history.location.pathname !== e.location.pathname &&
-  //     document.documentElement.className.indexOf("nav-open") !== -1
-  //   ) {
-  //     document.documentElement.classList.toggle("nav-open");
-  //     this.sidebarToggle.current.classList.toggle("toggled");
-  //   }
-  // }
+  componentDidMount() {
+    window.addEventListener("resize", this.updateColor.bind(this));
+  }
+  componentDidUpdate(e) {
+    if (
+      window.innerWidth < 993 &&
+      e.history.location.pathname !== e.location.pathname &&
+      document.documentElement.className.indexOf("nav-open") !== -1
+    ) {
+      document.documentElement.classList.toggle("nav-open");
+      this.sidebarToggle.current.classList.toggle("toggled");
+    }
+  }
   render() {
     return (
       // add or remove classes depending if we are on full-screen-maps page or not
@@ -145,14 +145,7 @@ class Topbar extends React.Component {
               </InputGroup>
             </form>
             <Nav navbar>
-              <NavItem>
-                <Link to="#pablo" className="nav-link btn-magnify">
-                  <i className="nc-icon nc-layout-11" />
-                  <p>
-                    <span className="d-lg-none d-md-block">Stats</span>
-                  </p>
-                </Link>
-              </NavItem>
+     
               <Dropdown
                 nav
                 isOpen={this.state.dropdownOpen}
@@ -161,20 +154,19 @@ class Topbar extends React.Component {
                 <DropdownToggle caret nav>
                   <i className="nc-icon nc-bell-55" />
                   <p>
-                    <span className="d-lg-none d-md-block">Some Actions</span>
+                    <span className="d-lg-none d-md-block">Notifications</span>
                   </p>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag="a">Action</DropdownItem>
-                  <DropdownItem tag="a">Another Action</DropdownItem>
-                  <DropdownItem tag="a">Something else here</DropdownItem>
+                  <DropdownItem tag="a">Notification will be here</DropdownItem>
+               
                 </DropdownMenu>
               </Dropdown>
               <NavItem>
-                <Link to="#pablo" className="nav-link btn-rotate">
+                <Link to="/AdminAccount/settings" className="nav-link btn-rotate">
                   <i className="nc-icon nc-settings-gear-65" />
                   <p>
-                    <span className="d-lg-none d-md-block">Account</span>
+                    <span className="d-lg-none d-md-block">Settings</span>
                   </p>
                 </Link>
               </NavItem>
