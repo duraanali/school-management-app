@@ -1,77 +1,132 @@
-import React, { useEffect, useState } from 'react';
-import { axiosWithAuth } from '../../../utility/axiosWithAuth';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchSettings } from "../../../actions";
+import { axiosWithAuth } from "../../../utility/axiosWithAuth";
+import { Link } from "react-router-dom";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardTitle,
-    Table,
-    Row,
-    Button,
-    Col
-  } from "reactstrap";
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Table,
+  Row,
+  Button,
+  Col,
+  Spinner
+} from "reactstrap";
 
+function Settings(props) {
+  const { error, loading, settings } = props;
 
-function Settings({ id }) {
-    const [admins, setAdmins] = useState([])
+ 
+  useEffect(() => {
+    props.dispatch(fetchSettings());
+  }, []);
 
-    useEffect(() => {
-        axiosWithAuth()
-            .get('https://alifcloud.herokuapp.com/api/admins/all')
-            .then(res => {
-                console.log("inside useeffect", res.data)
-                setAdmins(res.data)
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
 
-            })
-            .catch(err => console.log(err.response));
-    }, []);
+  if (loading) {
+    return  <div className="content">
+    <Row>
+      <Col>
+        <Card>
+          <CardHeader>
+            <CardTitle tag="h5">Settings</CardTitle>
 
-    return (
-       
-        <div className="content">
-          <Row>
-            <Col>
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Admins</CardTitle>
+            {/* <Link to={`/studentadd/`}>
+              <Button color="danger">
+                <i className="nc-icon nc-simple-add" /> Add Parent
+              </Button>
+            </Link> */}
+          </CardHeader>
+          <CardBody>
+            <Table responsive>
+              <thead className="text-primary">
+                <tr>
+                <th>ID#</th>
+                    <th>NAME</th>
+                    <th>ADDRESS</th>
+                    <th>EDIT</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr><Spinner color="dark" /></tr>
+              </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+                ;
+  }
 
-                  <Link to={`/AdminAccount/parentadd/`}><Button color="danger"><i className="nc-icon nc-simple-add" /> Add Admin</Button></Link>
-                </CardHeader>
-                <CardBody>
-                <Table responsive>
-                    <thead className="text-primary">
+  return (
+    <div className="content">
+      <Row>
+        <Col>
+          <Card>
+            <CardHeader>
+              <CardTitle tag="h5">Settings</CardTitle>
+
+              {/* <Link to={`/parentadd/`}>
+                <Button color="danger">
+                  <i className="nc-icon nc-simple-add" /> Add Parent
+                </Button>
+              </Link> */}
+            </CardHeader>
+            <CardBody>
+              <Table responsive>
+                <thead className="text-primary">
+                  <tr>
+                    <th>ID#</th>
+                    <th>SCHOOL NAME</th>
+                    <th>ADDRESS</th>
+        
+                    <th>EDIT</th>
+          
+                  </tr>
+                </thead>
+                <tbody>
+                  {settings.map((setting) => {
+                    return (
                       <tr>
-                        <th>ID#</th>
-                        <th>NAME</th>
-                        <th>EMAIL</th>
-                        <th>Edit/Delete</th>
+                        <td key={setting.id}>{setting.id}</td>
+                        <td key={setting.id}>{setting.school_name}</td>
+                        <td key={setting.id}>{setting.address}</td>
+            
+                        <td key={setting.id}>
+                          <Link to={`/settingsedit/${setting.id}`}>
+                            <Button color="success" active>
+                              {" "}
+                              Edit{" "}
+                            </Button>
+                          </Link>{" "}
+                       
+                        </td>
+      
                       </tr>
-                    </thead>
-                    <tbody>
-                    {admins.map((admin) => {
-
-                    return <tr>
-                        <td key={admin.id}>{admin.id}</td>
-                        <td key={admin.id}>{admin.name}</td>
-                        <td key={admin.id}>{admin.email}</td>
-                        <td key={admin.id}><Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="success" active> Edit </Button></Link> <Link to={`/AdminAccount/adminedit/${admin.id}`}><Button color="danger" active> Delete </Button></Link></td>
-                      </tr>
-                           })}
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-     
-    );
-
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Settings;
 
+const mapStateToProps = state => {
+  return {
+  settings: state.SettingsReducer.settings,
+  loading: state.SettingsReducer.loading,
+  error: state.SettingsReducer.error,
+  };
+};
 
-
-
+export default connect(mapStateToProps)(Settings);

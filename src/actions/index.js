@@ -1,6 +1,6 @@
 export {
     fetchStudents,
-    deleteStudent,
+
 
     FETCH_STUDENTS_DATA_START,
     FETCH_STUDENTS_DATA_SUCCESS,
@@ -12,10 +12,44 @@ export {
 export {
 
     fetchParents,
-    deleteParent,
+
 
     FETCH_PARENTS_DATA_START,
     FETCH_PARENTS_DATA_SUCCESS,
     FETCH_PARENTS_DATA_FAILURE,
     DELETE_PARENTS_DATA_SUCCESS
 } from './ParentsAction';
+
+export {
+
+    fetchTeachers,
+
+
+    FETCH_TEACHERS_DATA_START,
+    FETCH_TEACHERS_DATA_SUCCESS,
+    FETCH_TEACHERS_DATA_FAILURE,
+    DELETE_TEACHERS_DATA_SUCCESS
+} from './TeachersAction';
+
+export {
+
+    fetchClasses,
+    deleteClass,
+
+
+    FETCH_CLASSES_DATA_START,
+    FETCH_CLASSES_DATA_SUCCESS,
+    FETCH_CLASSES_DATA_FAILURE,
+    DELETE_CLASSES_DATA_SUCCESS
+} from './ClassesAction';
+
+export {
+
+    fetchSettings,
+
+
+    FETCH_SETTINGS_DATA_START,
+    FETCH_SETTINGS_DATA_SUCCESS,
+    FETCH_SETTINGS_DATA_FAILURE,
+    DELETE_SETTINGS_DATA_SUCCESS
+} from './SettingsAction';

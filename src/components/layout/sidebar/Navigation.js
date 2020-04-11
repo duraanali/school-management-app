@@ -1,40 +1,45 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
+import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import Pages from "../../../Pages";
 import "../../../assets/css/paper-dashboard.min.css";
 import "../../../assets/css/paper-dashboard.css";
 import "../../../assets/demo/demo.css";
+import {fetchSettings} from "../../../actions";
+function Navigation(props) {
+ 
+  const { settings } = props;
 
-class Navigation extends React.Component {
-  // verifies if routeName is the one active (in browser input)
-
-  render() {
+  useEffect(() => {
+    props.dispatch(fetchSettings());
     
+  }, []);
+ 
     return (
       <div
         className="sidebar"
-        data-color={this.props.bgColor}
-        data-active-color={this.props.activeColor}
+        data-color={props.bgColor}
+        data-active-color={props.activeColor}
       >
         <div className="logo">
-          <p
-            className="simple-text logo-mini"
-          >
-            <div className="logo-img">
-              {/* <img src={logo} alt="react-logo" /> */}
-            </div>
-          </p>
+ 
           <a
-            href="/"
+            href="/AdminAccount/dashboard"
             className="simple-text logo-normal"
           >
-            Alif Cloud
+                {settings.map((setting) => {
+                    return (
+                      <p>
+                        {setting.school_name}
+                      </p>
+                    );
+                  })}
           </a>
         </div>
-        <div className="sidebar-wrapper" ref={this.sidebar}>
+        <div className="sidebar-wrapper" ref={props.sidebar}>
           <Nav>
             {Pages.map((prop, key) => {
              
@@ -42,8 +47,8 @@ class Navigation extends React.Component {
                 <li>
                 <Route
                   path={prop.layout + prop.path}
-                
                   key={key}
+         
                 />
                   <NavLink
                     to={prop.layout + prop.path}
@@ -61,6 +66,13 @@ class Navigation extends React.Component {
       </div>
     );
   }
-}
 
-export default Navigation;
+
+  const mapStateToProps = state => {
+    return {
+    settings: state.SettingsReducer.settings,
+
+    };
+  };
+  
+  export default connect(mapStateToProps)(Navigation);

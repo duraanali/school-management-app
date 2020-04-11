@@ -142,8 +142,9 @@ const FormikParentEdit = withFormik({
    
   }),
   handleSubmit(values, { resetForm, setSubmitting, setStatus, props }) {
-    console.log(values);
+
     var id = props.match.params.id
+    console.log("PARENT ID", props);
     axiosWithAuth()
       .put(`https://alifcloud.herokuapp.com/api/parents/${id}`, values)
       .then((res) => {

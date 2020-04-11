@@ -29,7 +29,7 @@ export function fetchParents() {
   return (dispatch) => {
     dispatch(fetchParentsBegin());
     return axiosWithAuth()
-      .get(`https://alifcloud.herokuapp.com/api/parents/`)
+      .get(`http://localhost:5000/api/parents/`)
       .then((res) => {
         
         dispatch(fetchParentsSuccess(res.data));
@@ -38,16 +38,16 @@ export function fetchParents() {
   };
 }
 
-// export function deleteParent() {
-//   return (dispatch) => {
-//     dispatch(deleteParentsSuccess());
-//     return axiosWithAuth()
-//       .delete(`https://alifcloud.herokuapp.com/api/parents/${3}`)
-//       .then((res) => {
+export function deleteParent() {
+  return (dispatch) => {
+    dispatch(deleteParentsSuccess());
+    return axiosWithAuth()
+      .delete(`https://alifcloud.herokuapp.com/api/parents/${3}`)
+      .then((res) => {
 
-//         dispatch(deleteParentsSuccess(res.data));
-//       })
-//       .catch((error) => dispatch(fetchParentsFailure(error)));
-//   };
-// }
+        dispatch(deleteParentsSuccess(res.data));
+      })
+      .catch((error) => dispatch(fetchParentsFailure(error)));
+  };
+}
 
