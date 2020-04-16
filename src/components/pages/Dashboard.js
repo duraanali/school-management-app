@@ -59,12 +59,7 @@ function Dashboard(props){
                     </Col>
                   </Row>
                 </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update Now
-                  </div>
-                </CardFooter>
+
               </Card>
             </Col>
             <Col lg="3" md="6" sm="6">
