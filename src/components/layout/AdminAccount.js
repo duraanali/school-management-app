@@ -3,8 +3,8 @@
 import React from "react";
 // javascript plugin used to create scrollbars on windows
 import { Route, Switch } from "react-router-dom";
-import Topbar from "./topbar/Topbar";
-import Footer from "./footer/Footer";
+import Topbar from "./topbar/topbar";
+import Footer from "./footer/footer";
 import Navigation from "./sidebar/Navigation";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import "../../assets/css/paper-dashboard.min.css";

@@ -29,7 +29,7 @@ export function fetchParents() {
   return (dispatch) => {
     dispatch(fetchParentsBegin());
     return axiosWithAuth()
-      .get(`http://localhost:5000/api/parents/`)
+      .get(`https://alifcloud.herokuapp.com/api/parents/`)
       .then((res) => {
         
         dispatch(fetchParentsSuccess(res.data));

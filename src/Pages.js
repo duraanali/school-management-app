@@ -4,7 +4,7 @@ import Classes from "./components/pages/classes/Classes";
 import Parents from "./components/pages/parents/Parents";
 import Students from "./components/pages/students/Students";
 import Teachers from "./components/pages/teachers/Teachers";
-import Settings from "./components/pages/settings/Settings";
+import Settings from "./components/pages/settings/settings";
 import Logout from "./components/pages/Logout"
 
 
